@@ -120,7 +120,7 @@ export default function Page() {
             Nonprofit Grant Burn &amp; Risk Monitor
           </h1>
           <p className="mt-1 max-w-2xl text-sm text-slate-600">
-            A lightweight, rule-based view so nonprofit Controllers can sanity-check restricted grant burn, risk, and volatility in minutes.
+            A lightweight, rule-based view so nonprofit controllers can sanity-check restricted grant burn, risk, and volatility in minutes.
           </p>
         </header>
 
