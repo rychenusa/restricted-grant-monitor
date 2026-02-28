@@ -54,6 +54,77 @@ function getZoneClasses(zone: RiskZone): {
   }
 }
 
+function buildExportSummary(
+  inputs: GrantInputs,
+  metrics: ReturnType<typeof calculateMetrics>,
+): string {
+  const lines: string[] = [];
+
+  lines.push('Nonprofit Grant Burn & Risk Monitor – Snapshot');
+  lines.push('---------------------------------------------');
+  lines.push(`Grant amount: ${currencyFormatter.format(inputs.grantAmount)}`);
+  lines.push(`Start date: ${inputs.startDate}`);
+  lines.push(`End date: ${inputs.endDate}`);
+  lines.push(`Spend to date: ${currencyFormatter.format(inputs.spendToDate)}`);
+  lines.push('');
+  lines.push(
+    `Months elapsed / remaining: ${metrics.monthsElapsed} / ${metrics.monthsRemaining}`,
+  );
+  lines.push(
+    `Burn rate (per month): ${currencyFormatter.format(metrics.burnRate)}`,
+  );
+  lines.push(
+    `Projected spend: ${currencyFormatter.format(metrics.projectedSpend)}`,
+  );
+  lines.push(
+    `Projected landing %: ${percentFormatter(metrics.projectedLandingPct)}`,
+  );
+  lines.push(
+    `Remaining buffer: ${currencyFormatter.format(metrics.remainingBuffer)}`,
+  );
+  lines.push(`Burn risk zone: ${metrics.riskZone}`);
+  lines.push('');
+  lines.push(
+    `Composite risk score: ${metrics.compositeScore}/100 (${metrics.compositeBand})`,
+  );
+  lines.push(`- Burn position: ${metrics.burnScore}/40`);
+  lines.push(
+    `- Volatility: ${metrics.volatilityScore}/20 (ratio ${(metrics.volatilityRatio * 100).toFixed(
+      0,
+    )}%)`,
+  );
+  lines.push(
+    `- Acceleration delta: ${metrics.deltaScore}/10 (${(metrics.delta * 100).toFixed(
+      0,
+    )}% vs prior avg)`,
+  );
+  lines.push(
+    `- Data freshness: ${metrics.freshnessScore}/15 (${metrics.daysSinceUpdate} days old)`,
+  );
+  lines.push(`- Allocation complexity: ${metrics.complexityScore}/15`);
+  lines.push('');
+  lines.push('Recent spend (M-2 / M-1 / M0):');
+  lines.push(
+    `${currencyFormatter.format(inputs.spendM2)}, ${currencyFormatter.format(
+      inputs.spendM1,
+    )}, ${currencyFormatter.format(inputs.spendM0)}`,
+  );
+  lines.push('');
+  lines.push('Operational structure:');
+  lines.push(
+    `Tracking: ${inputs.trackingMethod}; Programs: ${inputs.numPrograms}; Overhead band: ${inputs.overheadPctBand}; Reclass: ${inputs.reclassFreq}`,
+  );
+  lines.push('');
+  lines.push('Automation readiness:');
+  lines.push(
+    metrics.automationFlagged
+      ? `Flagged – ${metrics.automationReasons.join(' ')}`
+      : 'Not flagged – conditions below thresholds.',
+  );
+
+  return lines.join('\n');
+}
+
 export default function Page() {
   const today = useMemo(() => new Date(), []);
   const defaultStart = useMemo(() => addMonths(today, -8), [today]);
@@ -94,8 +165,14 @@ export default function Page() {
   });
 
   const metrics = useMemo(() => calculateMetrics(inputs), [inputs]);
+  const exportSummary = useMemo(
+    () => buildExportSummary(inputs, metrics),
+    [inputs, metrics],
+  );
   const zoneClasses = getZoneClasses(metrics.riskZone);
   const bufferNegative = metrics.remainingBuffer < 0;
+
+  const [copied, setCopied] = useState(false);
 
   type NumberField =
     | 'grantAmount'
@@ -130,6 +207,16 @@ export default function Page() {
         [field]: e.target.value,
       }));
     };
+
+  const handleCopySummary = async () => {
+    try {
+      await navigator.clipboard.writeText(exportSummary);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
@@ -644,6 +731,34 @@ export default function Page() {
                     Monitor if volatility, acceleration, or data staleness increase.
                   </p>
                 )}
+              </div>
+            </div>
+
+            {/* Export snapshot */}
+            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+              <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+                <div>
+                  <h2 className="text-sm font-semibold text-slate-800">
+                    Export snapshot
+                  </h2>
+                  <p className="mt-1 text-xs text-slate-500">
+                    Copy a plain-text summary of this grant&apos;s burn, risk, and structure to share in email or notes.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleCopySummary}
+                    className="inline-flex items-center rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50"
+                  >
+                    Copy summary
+                  </button>
+                  {copied && (
+                    <span className="text-[11px] text-emerald-700">
+                      Copied
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </section>
