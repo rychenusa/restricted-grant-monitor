@@ -79,6 +79,20 @@ export default function Page() {
     reclassFreq: 'Monthly',
   });
 
+  const [numberInputs, setNumberInputs] = useState<{
+    grantAmount: string;
+    spendToDate: string;
+    spendM2: string;
+    spendM1: string;
+    spendM0: string;
+  }>({
+    grantAmount: '300000',
+    spendToDate: '220000',
+    spendM2: '20000',
+    spendM1: '30000',
+    spendM0: '40000',
+  });
+
   const metrics = useMemo(() => calculateMetrics(inputs), [inputs]);
   const zoneClasses = getZoneClasses(metrics.riskZone);
   const bufferNegative = metrics.remainingBuffer < 0;
@@ -94,10 +108,15 @@ export default function Page() {
     (field: NumberField) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const raw = e.target.value;
-      const parsed = parseFloat(raw || '0');
+      setNumberInputs(prev => ({
+        ...prev,
+        [field]: raw,
+      }));
+      const parsed = parseFloat(raw);
       setInputs(prev => ({
         ...prev,
-        [field]: Number.isFinite(parsed) && parsed >= 0 ? parsed : 0,
+        [field]:
+          raw === '' || !Number.isFinite(parsed) || parsed < 0 ? 0 : parsed,
       }));
     };
 
@@ -141,7 +160,7 @@ export default function Page() {
                     type="number"
                     min={0}
                     className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
-                    value={inputs.grantAmount}
+                    value={numberInputs.grantAmount}
                     onChange={handleNumberChange('grantAmount')}
                   />
                 </div>
@@ -153,7 +172,7 @@ export default function Page() {
                     type="number"
                     min={0}
                     className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
-                    value={inputs.spendToDate}
+                    value={numberInputs.spendToDate}
                     onChange={handleNumberChange('spendToDate')}
                   />
                 </div>
@@ -196,7 +215,7 @@ export default function Page() {
                     type="number"
                     min={0}
                     className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
-                    value={inputs.spendM2}
+                    value={numberInputs.spendM2}
                     onChange={handleNumberChange('spendM2')}
                   />
                 </div>
@@ -208,7 +227,7 @@ export default function Page() {
                     type="number"
                     min={0}
                     className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
-                    value={inputs.spendM1}
+                    value={numberInputs.spendM1}
                     onChange={handleNumberChange('spendM1')}
                   />
                 </div>
@@ -220,7 +239,7 @@ export default function Page() {
                     type="number"
                     min={0}
                     className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
-                    value={inputs.spendM0}
+                    value={numberInputs.spendM0}
                     onChange={handleNumberChange('spendM0')}
                   />
                 </div>
