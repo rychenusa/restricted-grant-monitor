@@ -633,19 +633,7 @@ export default function Page() {
         <footer className="mt-8 border-t border-slate-200 pt-4">
           <div className="flex flex-col justify-between gap-2 text-xs text-slate-500 sm:flex-row sm:items-center">
             <p>
-              Built as a satellite app concept for nonprofit finance leaders evaluating automation.
-            </p>
-            <p>
-              Inspired by Truewind&apos;s AI accounting layer for nonprofits. Learn more at{' '}
-              <a
-                href="https://www.trytruewind.com"
-                target="_blank"
-                rel="noreferrer"
-                className="font-medium text-sky-700 hover:text-sky-800"
-              >
-                trytruewind.com
-              </a>
-              .
+              Designed as a satellite diagnostic for nonprofit finance teams.
             </p>
           </div>
         </footer>
