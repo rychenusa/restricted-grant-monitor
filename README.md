@@ -1,133 +1,145 @@
-Restricted Grant Monitor
+# Restricted Grant Monitor
 
-Nonprofit Grant Burn & Risk Monitor
+**Nonprofit Grant Burn & Risk Monitor**
 
-Lightweight diagnostic tool for nonprofit controllers to sanity-check restricted grant pacing, volatility, and operational risk. The app projects end-of-grant spend, highlights instability in recent burn, and surfaces when manual grant processes may introduce risk.
+A lightweight diagnostic tool for monitoring **restricted grant pacing, volatility, and operational risk**. The monitor projects end-of-grant landing, flags instability in recent spending, and surfaces when manual accounting workflows may introduce risk.
 
-Built by Ryan Chen.
+Designed to be fast, interpretable, and usable during **monthly close or board preparation**.
 
-Live app: https://restricted-grant-monitor.vercel.app/
+**Built by Ryan Chen.**
 
-GitHub
+**Live app:** https://restricted-grant-monitor.vercel.app/
 
-What it does
+---
 
-Restricted grants often fail for two opposite reasons:
+## Quick start
 
-• Overspend → compliance or audit exposure
-• Underspend → missed deployment or renewal risk
+```bash
+git clone https://github.com/rychenusa/restricted-grant-monitor.git
+cd restricted-grant-monitor
+npm install
+npm run dev
+```
 
-This tool provides a quick operational view of whether a grant is pacing correctly.
+Open the app in your browser and enter the grant inputs at the top of the dashboard.
 
-It calculates:
+Main inputs include:
 
-• projected end-of-grant landing
-• burn rate stability
-• acceleration in recent spending
-• data freshness
-• operational allocation complexity
+- **Grant amount** — total value of the restricted grant  
+- **Spend to date** — cumulative expenses charged to the grant  
+- **Start and end dates** — defines the grant timeline  
+- **Recent monthly spend** — the last three months of expenses  
+- **Last updated date** — indicates how fresh the financial data is  
+- **Operational structure** — manual tracking, program allocations, overhead band, and reclassification frequency  
 
-These signals combine into a transparent Risk Score (0–100) designed to be interpretable in seconds during monthly close or board prep.
+The monitor then calculates projected landing, risk signals, and automation readiness.
 
-Key metrics
-Projected Landing
+---
 
-Burn rate is calculated using average monthly spend:
+## How it works
 
+The monitor evaluates whether a grant is pacing toward a safe landing using a small set of interpretable signals.
+
+### Burn rate
+
+Burn rate is calculated using average monthly spend.
+
+```
 burn rate = total spend to date ÷ elapsed months
+projected spend = burn rate × total grant duration
+```
 
-Projected spend = burn rate × total grant duration
+This produces the **Projected Landing %**, which indicates whether the grant is likely to overspend or underspend.
 
-This produces the Projected Landing %, showing whether the grant will likely overspend or underspend.
+### Safety band
 
-Safety Band
+The monitor uses a **97–100% safety band**.
 
-The monitor uses a 97–100% safety band.
+In real nonprofit finance workflows, grants rarely land exactly at 100% due to accrual timing, reclasses, and final-period spending adjustments. The band reflects a practical target range.
 
-In real nonprofit finance operations, grants rarely land exactly at 100% due to:
+### Scenario comparison
 
-• accrual timing
-• expense reclasses
-• last-minute spending adjustments
+The tool also simulates **±10% burn adjustments** to show how sensitive the final landing is to pacing changes.
 
-The safety band reflects real operational behavior while still flagging risk.
+This helps controllers quickly understand how small spending changes affect the final grant position.
 
-Risk Score
+All calculations are **rule-based and transparent**. There are no machine learning models or black-box scoring systems.
 
-The total score combines multiple signals that affect pacing reliability.
+---
 
-Component	Max Score	Description
-Burn Position	40	Distance from safety band
-Volatility	20	Instability in recent monthly spend
-Acceleration	10	Current month spend vs recent average
-Data Freshness	15	Time since financial inputs were updated
-Allocation Complexity	15	Operational accounting complexity
+## Risk scoring framework
 
-All scoring is rule-based and fully transparent.
+The **Risk Score** aggregates several operational signals that affect grant reliability.
 
-No machine learning or black-box models are used.
+| Component | Max Score | Description |
+|-----------|-----------|-------------|
+| Burn position | 40 | Distance between projected landing and safety band |
+| Volatility | 20 | Instability in recent monthly spend |
+| Acceleration | 10 | Current month spend relative to recent average |
+| Data freshness | 15 | Time since the financial data was last updated |
+| Allocation complexity | 15 | Manual tracking, program count, overhead structure, and reclassification frequency |
 
-Scenario comparison
+Higher scores indicate greater risk that the grant may miss its target landing.
 
-The monitor runs a quick sensitivity check by simulating:
+---
 
-• current burn
-• −10% burn
-• +10% burn
+## Automation readiness
 
-This shows how small pacing changes affect the final landing percentage and remaining buffer.
+The monitor also highlights when operational conditions suggest value from automation.
 
-Controllers can quickly see whether small adjustments would move the grant back into a safe range.
+Signals include:
 
-Automation readiness
+- **High spend volatility**
+- **Stale financial data**
+- **Manual grant tracking**
+- **Frequent accounting reclassifications**
+- **High allocation complexity**
 
-The tool also flags when operational conditions suggest that automation could reduce risk.
+When several of these appear together, the system recommends evaluating automated grant monitoring or accounting workflows.
 
-Automation is recommended when signals such as:
+---
 
-• high volatility
-• stale financial data
-• manual grant tracking
-• frequent reclass adjustments
+## Export snapshot
 
-appear together.
+The **Copy Summary** feature generates a plain-text snapshot of the grant's status.
 
-This creates a natural moment to streamline reconciliation and grant monitoring workflows.
+Controllers can quickly share:
 
-Export snapshot
+- burn pacing
+- projected landing
+- risk signals
+- operational structure
 
-The Copy Summary feature generates a plain-text snapshot of the grant’s burn status and risk signals.
+This allows finance teams to communicate grant status to **CFOs, boards, or program managers** without manually compiling the analysis.
 
-This allows controllers to quickly share updates with:
+---
 
-• CFOs
-• board members
-• finance teams
+## Project structure
 
-without needing to explain the underlying calculations.
+| Path | Purpose |
+|------|--------|
+| `app/` | Application UI and dashboard logic |
+| `components/` | UI components and scoring modules |
+| `utils/` | Burn calculations and risk scoring functions |
+| `public/` | Static assets |
+| `vercel.json` | Deployment configuration |
 
-Project structure
-Path	Purpose
-app/	Main application logic
-components/	Risk score and UI modules
-utils/	Burn calculations and scoring logic
-public/	Static assets
-deployment/	Vercel configuration
-Design philosophy
+---
 
-The monitor was designed as a satellite diagnostic tool rather than a full financial system.
+## Running locally
 
-Key principles:
+Anyone can clone the repository and run the monitor locally.
 
-• lightweight and fast to interpret
-• rule-based and explainable
-• realistic nonprofit accounting assumptions
-• usable without ERP integration
+The application runs entirely client-side and requires no external APIs or authentication.
 
-The goal is to help finance teams identify pacing risk early before it becomes operational or compliance exposure.
+---
 
-Tech
+## Tech
 
-React, TypeScript, Next.js, Vercel deployment.
+- Next.js  
+- React  
+- TypeScript  
+- Tailwind CSS  
+- Vercel deployment  
 
-Runs entirely in the browser with deterministic calculations.
+All calculations are deterministic and executed directly in the browser.
