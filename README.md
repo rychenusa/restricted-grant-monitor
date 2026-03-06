@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Restricted Grant Monitor
 
-## Getting Started
+Nonprofit Grant Burn & Risk Monitor
 
-First, run the development server:
+Lightweight diagnostic tool for nonprofit controllers to sanity-check restricted grant pacing, volatility, and operational risk. The app projects end-of-grant spend, highlights instability in recent burn, and surfaces when manual grant processes may introduce risk.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Built by Ryan Chen.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Live app: https://restricted-grant-monitor.vercel.app/
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+GitHub
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+What it does
 
-## Learn More
+Restricted grants often fail for two opposite reasons:
 
-To learn more about Next.js, take a look at the following resources:
+• Overspend → compliance or audit exposure
+• Underspend → missed deployment or renewal risk
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This tool provides a quick operational view of whether a grant is pacing correctly.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+It calculates:
 
-## Deploy on Vercel
+• projected end-of-grant landing
+• burn rate stability
+• acceleration in recent spending
+• data freshness
+• operational allocation complexity
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+These signals combine into a transparent Risk Score (0–100) designed to be interpretable in seconds during monthly close or board prep.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Key metrics
+Projected Landing
+
+Burn rate is calculated using average monthly spend:
+
+burn rate = total spend to date ÷ elapsed months
+
+Projected spend = burn rate × total grant duration
+
+This produces the Projected Landing %, showing whether the grant will likely overspend or underspend.
+
+Safety Band
+
+The monitor uses a 97–100% safety band.
+
+In real nonprofit finance operations, grants rarely land exactly at 100% due to:
+
+• accrual timing
+• expense reclasses
+• last-minute spending adjustments
+
+The safety band reflects real operational behavior while still flagging risk.
+
+Risk Score
+
+The total score combines multiple signals that affect pacing reliability.
+
+Component	Max Score	Description
+Burn Position	40	Distance from safety band
+Volatility	20	Instability in recent monthly spend
+Acceleration	10	Current month spend vs recent average
+Data Freshness	15	Time since financial inputs were updated
+Allocation Complexity	15	Operational accounting complexity
+
+All scoring is rule-based and fully transparent.
+
+No machine learning or black-box models are used.
+
+Scenario comparison
+
+The monitor runs a quick sensitivity check by simulating:
+
+• current burn
+• −10% burn
+• +10% burn
+
+This shows how small pacing changes affect the final landing percentage and remaining buffer.
+
+Controllers can quickly see whether small adjustments would move the grant back into a safe range.
+
+Automation readiness
+
+The tool also flags when operational conditions suggest that automation could reduce risk.
+
+Automation is recommended when signals such as:
+
+• high volatility
+• stale financial data
+• manual grant tracking
+• frequent reclass adjustments
+
+appear together.
+
+This creates a natural moment to streamline reconciliation and grant monitoring workflows.
+
+Export snapshot
+
+The Copy Summary feature generates a plain-text snapshot of the grant’s burn status and risk signals.
+
+This allows controllers to quickly share updates with:
+
+• CFOs
+• board members
+• finance teams
+
+without needing to explain the underlying calculations.
+
+Project structure
+Path	Purpose
+app/	Main application logic
+components/	Risk score and UI modules
+utils/	Burn calculations and scoring logic
+public/	Static assets
+deployment/	Vercel configuration
+Design philosophy
+
+The monitor was designed as a satellite diagnostic tool rather than a full financial system.
+
+Key principles:
+
+• lightweight and fast to interpret
+• rule-based and explainable
+• realistic nonprofit accounting assumptions
+• usable without ERP integration
+
+The goal is to help finance teams identify pacing risk early before it becomes operational or compliance exposure.
+
+Tech
+
+React, TypeScript, Next.js, Vercel deployment.
+
+Runs entirely in the browser with deterministic calculations.
