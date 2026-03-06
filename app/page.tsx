@@ -34,22 +34,22 @@ function getZoneClasses(zone: RiskZone): {
   switch (zone) {
     case 'Ideal':
       return {
-        pill: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
-        text: 'text-emerald-700',
-        bgLight: 'bg-emerald-50',
+        pill: 'bg-emerald-900/60 text-emerald-300 border border-emerald-600',
+        text: 'text-emerald-400',
+        bgLight: 'bg-emerald-900/40',
       };
     case 'Caution':
       return {
-        pill: 'bg-amber-50 text-amber-700 border border-amber-200',
-        text: 'text-amber-700',
-        bgLight: 'bg-amber-50',
+        pill: 'bg-amber-900/60 text-amber-300 border border-amber-600',
+        text: 'text-amber-400',
+        bgLight: 'bg-amber-900/40',
       };
     case 'High Risk':
     default:
       return {
-        pill: 'bg-rose-50 text-rose-700 border border-rose-200',
-        text: 'text-rose-700',
-        bgLight: 'bg-rose-50',
+        pill: 'bg-rose-900/60 text-rose-300 border border-rose-600',
+        text: 'text-rose-400',
+        bgLight: 'bg-rose-900/40',
       };
   }
 }
@@ -219,13 +219,13 @@ export default function Page() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
+    <main className="min-h-screen bg-[#0a0a0a] text-slate-100">
       <div className="mx-auto max-w-6xl px-4 py-8">
         <header className="mb-6">
-          <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
+          <h1 className="text-2xl font-semibold tracking-tight text-slate-100">
             Nonprofit Grant Burn &amp; Risk Monitor
           </h1>
-          <p className="mt-1 max-w-2xl text-sm text-slate-600">
+          <p className="mt-1 max-w-2xl text-sm text-slate-400">
             A lightweight, rule-based view so nonprofit controllers can sanity-check restricted grant burn, risk, and volatility in minutes.
           </p>
         </header>
@@ -234,53 +234,53 @@ export default function Page() {
           {/* LEFT: INPUTS */}
           <section className="space-y-4">
             {/* Grant Details */}
-            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
+            <div className="rounded-xl border border-slate-700 bg-slate-800/80 p-4 shadow-sm">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-400">
                 Grant Details
               </h2>
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-medium text-slate-600">
+                  <label className="block text-xs font-medium text-slate-400">
                     Grant Amount
                   </label>
                   <input
                     type="number"
                     min={0}
-                    className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-900 text-slate-100 px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     value={numberInputs.grantAmount}
                     onChange={handleNumberChange('grantAmount')}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600">
+                  <label className="block text-xs font-medium text-slate-400">
                     Spend To Date
                   </label>
                   <input
                     type="number"
                     min={0}
-                    className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-900 text-slate-100 px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     value={numberInputs.spendToDate}
                     onChange={handleNumberChange('spendToDate')}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600">
+                  <label className="block text-xs font-medium text-slate-400">
                     Start Date
                   </label>
                   <input
                     type="date"
-                    className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-900 text-slate-100 px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     value={inputs.startDate}
                     onChange={handleDateChange('startDate')}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600">
+                  <label className="block text-xs font-medium text-slate-400">
                     End Date
                   </label>
                   <input
                     type="date"
-                    className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-900 text-slate-100 px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     value={inputs.endDate}
                     onChange={handleDateChange('endDate')}
                   />
@@ -289,43 +289,43 @@ export default function Page() {
             </div>
 
             {/* Recent Spend */}
-            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
+            <div className="rounded-xl border border-slate-700 bg-slate-800/80 p-4 shadow-sm">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-400">
                 Recent Spend (Monthly)
               </h2>
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-600">
+                  <label className="block text-xs font-medium text-slate-400">
                     Two Months Ago (M-2)
                   </label>
                   <input
                     type="number"
                     min={0}
-                    className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-900 text-slate-100 px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     value={numberInputs.spendM2}
                     onChange={handleNumberChange('spendM2')}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600">
+                  <label className="block text-xs font-medium text-slate-400">
                     Last Month (M-1)
                   </label>
                   <input
                     type="number"
                     min={0}
-                    className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-900 text-slate-100 px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     value={numberInputs.spendM1}
                     onChange={handleNumberChange('spendM1')}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600">
+                  <label className="block text-xs font-medium text-slate-400">
                     Current Month (M0)
                   </label>
                   <input
                     type="number"
                     min={0}
-                    className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-900 text-slate-100 px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     value={numberInputs.spendM0}
                     onChange={handleNumberChange('spendM0')}
                   />
@@ -334,18 +334,18 @@ export default function Page() {
             </div>
 
             {/* Data Freshness */}
-            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
+            <div className="rounded-xl border border-slate-700 bg-slate-800/80 p-4 shadow-sm">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-400">
                 Data Freshness
               </h2>
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-medium text-slate-600">
+                  <label className="block text-xs font-medium text-slate-400">
                     Last Updated Date
                   </label>
                   <input
                     type="date"
-                    className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-900 text-slate-100 px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     value={inputs.lastUpdatedDate}
                     onChange={handleDateChange('lastUpdatedDate')}
                   />
@@ -357,17 +357,17 @@ export default function Page() {
             </div>
 
             {/* Operational Structure */}
-            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
+            <div className="rounded-xl border border-slate-700 bg-slate-800/80 p-4 shadow-sm">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-400">
                 Operational Structure
               </h2>
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-medium text-slate-600">
+                  <label className="block text-xs font-medium text-slate-400">
                     Tracking Method
                   </label>
                   <select
-                    className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-900 text-slate-100 px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     value={inputs.trackingMethod}
                     onChange={e =>
                       setInputs(prev => ({
@@ -382,11 +382,11 @@ export default function Page() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600">
+                  <label className="block text-xs font-medium text-slate-400">
                     Number of Programs
                   </label>
                   <select
-                    className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-900 text-slate-100 px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     value={inputs.numPrograms}
                     onChange={e =>
                       setInputs(prev => ({
@@ -401,11 +401,11 @@ export default function Page() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600">
+                  <label className="block text-xs font-medium text-slate-400">
                     Overhead % Band
                   </label>
                   <select
-                    className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-900 text-slate-100 px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     value={inputs.overheadPctBand}
                     onChange={e =>
                       setInputs(prev => ({
@@ -420,11 +420,11 @@ export default function Page() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600">
+                  <label className="block text-xs font-medium text-slate-400">
                     Reclass Frequency
                   </label>
                   <select
-                    className="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    className="mt-1 w-full rounded-md border border-slate-600 bg-slate-900 text-slate-100 px-3 py-1.5 text-sm shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     value={inputs.reclassFreq}
                     onChange={e =>
                       setInputs(prev => ({
@@ -448,14 +448,14 @@ export default function Page() {
           {/* RIGHT: RESULTS */}
           <section className="space-y-4">
             {/* Primary metrics */}
-            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="rounded-xl border border-slate-700 bg-slate-800/80 p-4 shadow-sm">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+                    <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
                       Projected Landing %
                     </p>
-                    <p className="mt-1 text-3xl font-semibold tracking-tight">
+                    <p className="mt-1 text-3xl font-semibold tracking-tight text-slate-100">
                       {percentFormatter(metrics.projectedLandingPct)}
                     </p>
                     <p className="mt-1 text-xs text-slate-500">
@@ -463,12 +463,12 @@ export default function Page() {
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+                    <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
                       Remaining Buffer
                     </p>
                     <p
                       className={`mt-1 text-3xl font-semibold tracking-tight ${
-                        bufferNegative ? 'text-rose-600' : 'text-slate-900'
+                        bufferNegative ? 'text-rose-400' : 'text-slate-100'
                       }`}
                     >
                       {currencyFormatter.format(metrics.remainingBuffer)}
@@ -491,21 +491,21 @@ export default function Page() {
                 </div>
               </div>
 
-              <div className="mt-4 grid grid-cols-1 gap-4 border-t border-slate-100 pt-4 text-xs text-slate-600 sm:grid-cols-3">
+              <div className="mt-4 grid grid-cols-1 gap-4 border-t border-slate-600 pt-4 text-xs text-slate-400 sm:grid-cols-3">
                 <div>
-                  <p className="font-medium text-slate-700">Burn rate (per month)</p>
+                  <p className="font-medium text-slate-300">Burn rate (per month)</p>
                   <p className="mt-0.5">
                     {currencyFormatter.format(metrics.burnRate)}
                   </p>
                 </div>
                 <div>
-                  <p className="font-medium text-slate-700">Timeline</p>
+                  <p className="font-medium text-slate-300">Timeline</p>
                   <p className="mt-0.5">
                     {metrics.monthsElapsed} elapsed / {metrics.monthsRemaining} remaining
                   </p>
                 </div>
                 <div>
-                  <p className="font-medium text-slate-700">Projected spend</p>
+                  <p className="font-medium text-slate-300">Projected spend</p>
                   <p className="mt-0.5">
                     {currencyFormatter.format(metrics.projectedSpend)}
                   </p>
@@ -514,10 +514,10 @@ export default function Page() {
             </div>
 
             {/* Risk score + breakdown */}
-            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="rounded-xl border border-slate-700 bg-slate-800/80 p-4 shadow-sm">
               <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
                 <div>
-                  <h2 className="text-sm font-semibold text-slate-800">
+                  <h2 className="text-sm font-semibold text-slate-200">
                     Risk Score
                   </h2>
                   <p className="text-xs text-slate-500">
@@ -525,16 +525,16 @@ export default function Page() {
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xl font-semibold text-slate-900">
+                  <p className="text-xl font-semibold text-slate-100">
                     {metrics.compositeScore}/100
                   </p>
                   <p
                     className={`text-xs font-medium ${
                       metrics.compositeBand === 'Low'
-                        ? 'text-emerald-700'
+                        ? 'text-emerald-400'
                         : metrics.compositeBand === 'Moderate'
-                        ? 'text-amber-700'
-                        : 'text-rose-700'
+                        ? 'text-amber-400'
+                        : 'text-rose-400'
                     }`}
                   >
                     {metrics.compositeBand} risk
@@ -542,7 +542,7 @@ export default function Page() {
                 </div>
               </div>
 
-              <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-100">
+              <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-700">
                 <div
                   className={`h-full rounded-full ${
                     metrics.compositeBand === 'Low'
@@ -555,9 +555,9 @@ export default function Page() {
                 />
               </div>
 
-              <dl className="mt-4 grid grid-cols-1 gap-3 text-xs text-slate-600 md:grid-cols-2">
-                <div className="rounded-lg bg-slate-50 px-3 py-2">
-                  <dt className="font-medium text-slate-700">
+              <dl className="mt-4 grid grid-cols-1 gap-3 text-xs text-slate-400 md:grid-cols-2">
+                <div className="rounded-lg bg-slate-900/60 px-3 py-2">
+                  <dt className="font-medium text-slate-300">
                     Burn position (0–40)
                   </dt>
                   <dd className="mt-0.5 flex items-baseline justify-between">
@@ -567,8 +567,8 @@ export default function Page() {
                     </span>
                   </dd>
                 </div>
-                <div className="rounded-lg bg-slate-50 px-3 py-2">
-                  <dt className="font-medium text-slate-700">
+                <div className="rounded-lg bg-slate-900/60 px-3 py-2">
+                  <dt className="font-medium text-slate-300">
                     Volatility (0–20)
                   </dt>
                   <dd className="mt-0.5 flex items-baseline justify-between">
@@ -583,8 +583,8 @@ export default function Page() {
                     </p>
                   )}
                 </div>
-                <div className="rounded-lg bg-slate-50 px-3 py-2">
-                  <dt className="font-medium text-slate-700">
+                <div className="rounded-lg bg-slate-900/60 px-3 py-2">
+                  <dt className="font-medium text-slate-300">
                     Acceleration delta (0–10)
                   </dt>
                   <dd className="mt-0.5 flex items-baseline justify-between">
@@ -599,8 +599,8 @@ export default function Page() {
                     </p>
                   )}
                 </div>
-                <div className="rounded-lg bg-slate-50 px-3 py-2">
-                  <dt className="font-medium text-slate-700">
+                <div className="rounded-lg bg-slate-900/60 px-3 py-2">
+                  <dt className="font-medium text-slate-300">
                     Data freshness (0–15)
                   </dt>
                   <dd className="mt-0.5 flex items-baseline justify-between">
@@ -610,8 +610,8 @@ export default function Page() {
                     </span>
                   </dd>
                 </div>
-                <div className="rounded-lg bg-slate-50 px-3 py-2 md:col-span-2">
-                  <dt className="font-medium text-slate-700">
+                <div className="rounded-lg bg-slate-900/60 px-3 py-2 md:col-span-2">
+                  <dt className="font-medium text-slate-300">
                     Allocation complexity (0–15)
                   </dt>
                   <dd className="mt-0.5 flex items-baseline justify-between">
@@ -626,10 +626,10 @@ export default function Page() {
             </div>
 
             {/* Scenario comparison */}
-            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="rounded-xl border border-slate-700 bg-slate-800/80 p-4 shadow-sm">
               <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
                 <div>
-                  <h2 className="text-sm font-semibold text-slate-800">
+                  <h2 className="text-sm font-semibold text-slate-200">
                     Scenario Comparison
                   </h2>
                   <p className="text-xs text-slate-500">
@@ -645,10 +645,10 @@ export default function Page() {
                   return (
                     <div
                       key={scenario.label}
-                      className="flex flex-col justify-between rounded-lg border border-slate-100 bg-slate-50 px-3 py-3 text-xs"
+                      className="flex flex-col justify-between rounded-lg border border-slate-600 bg-slate-900/60 px-3 py-3 text-xs"
                     >
                       <div className="flex items-center justify-between">
-                        <p className="font-medium text-slate-800">
+                        <p className="font-medium text-slate-200">
                           {scenario.label}
                         </p>
                         <span
@@ -662,7 +662,7 @@ export default function Page() {
                           <span className="text-slate-500">
                             Landing %
                           </span>
-                          <span className="font-medium text-slate-900">
+                          <span className="font-medium text-slate-100">
                             {percentFormatter(
                               scenario.projectedLandingPct,
                               1,
@@ -675,7 +675,7 @@ export default function Page() {
                           </span>
                           <span
                             className={`font-medium ${
-                              scNegative ? 'text-rose-600' : 'text-slate-900'
+                              scNegative ? 'text-rose-400' : 'text-slate-100'
                             }`}
                           >
                             {currencyFormatter.format(
@@ -691,10 +691,10 @@ export default function Page() {
             </div>
 
             {/* Automation readiness */}
-            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="rounded-xl border border-slate-700 bg-slate-800/80 p-4 shadow-sm">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <h2 className="text-sm font-semibold text-slate-800">
+                  <h2 className="text-sm font-semibold text-slate-200">
                     Automation Readiness
                   </h2>
                   <p className="mt-1 text-xs text-slate-500">
@@ -705,18 +705,18 @@ export default function Page() {
                 <span
                   className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${
                     metrics.automationFlagged
-                      ? 'bg-sky-50 text-sky-700 border border-sky-200'
-                      : 'bg-slate-50 text-slate-600 border border-slate-200'
+                      ? 'bg-sky-900/60 text-sky-300 border border-sky-600'
+                      : 'bg-slate-700 text-slate-400 border border-slate-600'
                   }`}
                 >
                   {metrics.automationFlagged ? 'Automation recommended' : 'Manual OK for now'}
                 </span>
               </div>
 
-              <div className="mt-3 text-xs text-slate-600">
+              <div className="mt-3 text-xs text-slate-400">
                 {metrics.automationFlagged ? (
                   <>
-                    <p className="font-medium text-slate-800">
+                    <p className="font-medium text-slate-200">
                       Triggered by:
                     </p>
                     <ul className="mt-1 list-disc space-y-0.5 pl-4">
@@ -735,10 +735,10 @@ export default function Page() {
             </div>
 
             {/* Export snapshot */}
-            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="rounded-xl border border-slate-700 bg-slate-800/80 p-4 shadow-sm">
               <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
                 <div>
-                  <h2 className="text-sm font-semibold text-slate-800">
+                  <h2 className="text-sm font-semibold text-slate-200">
                     Export snapshot
                   </h2>
                   <p className="mt-1 text-xs text-slate-500">
@@ -749,12 +749,12 @@ export default function Page() {
                   <button
                     type="button"
                     onClick={handleCopySummary}
-                    className="inline-flex items-center rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50"
+                    className="inline-flex items-center rounded-full bg-sky-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-sky-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
                   >
                     Copy summary
                   </button>
                   {copied && (
-                    <span className="text-[11px] text-emerald-700">
+                    <span className="text-[11px] text-emerald-400">
                       Copied
                     </span>
                   )}
@@ -764,7 +764,7 @@ export default function Page() {
           </section>
         </div>
 
-        <footer className="mt-8 border-t border-slate-200 pt-4">
+        <footer className="mt-8 border-t border-slate-700 pt-4">
           <div className="flex flex-col justify-between gap-2 text-xs text-slate-500 sm:flex-row sm:items-center">
             <p>
               Designed as a satellite diagnostic for nonprofit finance teams.
