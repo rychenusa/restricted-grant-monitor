@@ -1,89 +1,64 @@
 # Restricted Grant Monitor
 
-A lightweight diagnostic dashboard for monitoring **restricted grant burn pacing and operational risk**.
+**Overview**
 
-The monitor projects end-of-grant landing, detects spending volatility, and flags when manual accounting workflows may introduce risk. Designed to be fast, interpretable, and usable during **monthly close or board preparation**.
+A browser-based tool for nonprofit finance teams to review **restricted grant** pacing, spending volatility, and operational risk in one place. Enter grant details and recent activity; the app returns projected landing, scenario comparisons, and a transparent risk score. All calculations run locally with **deterministic, rule-based logic**—no external services or machine learning.
 
-**Live demo:**  
-https://restricted-grant-monitor.vercel.app/
-
-Built by Ryan Chen.
+**Author:** Ryan Chen  
+**Live application:** https://restricted-grant-monitor.vercel.app/
 
 ---
 
-## Overview
-
-Restricted grants rarely land exactly at their target spend due to accrual timing, volatility in program expenses, and operational complexity.
-
-The Restricted Grant Monitor provides a quick diagnostic of whether a grant is pacing toward a safe landing and highlights signals that may introduce operational risk.
-
-The system emphasizes **transparent rule-based diagnostics** rather than opaque models so finance teams can immediately understand why a grant may be off track.
-
----
-
-## Core Inputs
-
-The monitor requires a small set of inputs typically available during grant monitoring:
-
-- **Grant amount** — total value of the restricted grant  
-- **Spend to date** — cumulative expenses charged to the grant  
-- **Grant timeline** — start and end dates defining the grant duration  
-- **Recent monthly spend** — the last three months of spending activity  
-- **Last updated date** — indicates how fresh the financial data is  
-- **Operational structure** — manual tracking, program allocations, overhead structure, and reclassification frequency  
-
-These inputs allow the monitor to estimate grant pacing and operational reliability.
-
----
-
-## Key Diagnostics
-
-### Projected Landing
-Estimates where the grant is likely to land relative to its total value using historical burn pace.
-
-Results are evaluated against a **97–100% safety band**, reflecting the practical reality that grants rarely land exactly at 100% due to accrual timing and final adjustments.
-
-### Spend Volatility
-Measures instability in recent monthly spending. Large swings often signal operational instability or rushed end-of-grant spending.
-
-### Sensitivity Analysis
-Simulates **±10% burn adjustments** to show how small pacing changes affect final grant landing.
-
----
-
-## Risk Score
-
-The Risk Score aggregates operational signals that affect the reliability of the projected landing.
-
-| Component | Max Score | Description |
-|-----------|-----------|-------------|
-| Burn position | 40 | Distance between projected landing and safety band |
-| Volatility | 20 | Instability in recent monthly spend |
-| Acceleration | 10 | Current month spending relative to recent average |
-| Data freshness | 15 | Time since financial data was last updated |
-| Allocation complexity | 15 | Manual tracking, program allocations, and reclassification activity |
-
-Higher scores indicate greater risk that the grant may miss its target landing.
-
----
-
-## Snapshot Export
-
-The **Copy Summary** feature generates a plain-text snapshot of the grant’s status, allowing teams to quickly share:
-
-- burn pacing  
-- projected landing  
-- key risk signals  
-- operational structure  
-
-Useful during **monthly close, CFO updates, or board preparation**.
-
----
-
-## Running Locally
+## Local development
 
 ```bash
 git clone https://github.com/rychenusa/restricted-grant-monitor.git
 cd restricted-grant-monitor
 npm install
 npm run dev
+```
+
+Open the URL shown in the terminal (typically http://localhost:3000). The app is fully client-side; no API keys or authentication are required.
+
+---
+
+## Inputs
+
+The dashboard expects:
+
+- Grant amount and period (start and end dates)  
+- Cumulative spend to date  
+- Monthly spend for the three most recent months  
+- Date the underlying data was last updated  
+- Operational context: tracking method, number of programs, overhead band, and reclassification frequency  
+
+These inputs support burn-rate estimates, projected landing as a percentage of the grant, and volatility and freshness signals.
+
+---
+
+## Outputs
+
+| Output | Description |
+|--------|-------------|
+| **Projected landing %** | Expected spend at the end of the grant vs the award. A **97–100%** band is treated as a practical target (closing rarely lands exactly at 100% due to timing and adjustments). |
+| **Scenario comparison** | Burn adjusted ±10% to illustrate sensitivity of landing and remaining buffer. |
+| **Risk score** | Composite score from burn position, volatility, acceleration vs recent average, data freshness, and allocation complexity. A higher score indicates more monitoring attention, not a forecast of default. |
+| **Automation readiness** | Highlights when combined conditions suggest reviewing automated monitoring or accounting workflows. |
+| **Export** | Plain-text summary suitable for email, board packets, or internal notes. |
+
+---
+
+## Stack
+
+Next.js, React, TypeScript, Tailwind CSS. Hosted on Vercel.
+
+---
+
+## Repository structure
+
+| Path | Role |
+|------|------|
+| `app/` | Application UI and pages |
+| `lib/` | Burn and risk calculations |
+| `public/` | Static assets |
+| `vercel.json` | Deployment configuration |
